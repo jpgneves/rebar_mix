@@ -30,4 +30,5 @@ format_error(Reason) ->
     io_lib:format("~p", Reason).
 
 sh(Command, Options) ->
-    rebar_utils:sh(Command, [{env, [{"ERL_FLAGS", ""}]} | Options]).
+    ExtraEnv = proplists:get_value(env, Options, []),
+    rebar_utils:sh(Command, [{env, [{"ERL_FLAGS", ""} | ExtraEnv]} | Options]).
